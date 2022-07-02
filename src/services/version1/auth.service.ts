@@ -37,4 +37,13 @@ export class AuthService {
     const auth_info = await jwt.verify(api_token, config.jwt_secret);
     return auth_info;
   }
+
+  /** 验证jwt令牌 **/
+  async jwt_verify(API_TOKEN) {
+    const is_verify = await jwt.verify(API_TOKEN, config.jwt_secret);
+    if (is_verify) {
+      return true;
+    }
+    return false;
+  }
 }

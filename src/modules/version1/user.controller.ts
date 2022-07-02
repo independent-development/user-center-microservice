@@ -1,4 +1,5 @@
 import { InjectRepository } from "@nestjs/typeorm";
+import { MessagePattern, Payload } from "@nestjs/microservices";
 /*  prettier-ignore */
 import { Controller, Post, Body, Request ,Response, Get } from '@nestjs/common';
 
@@ -11,6 +12,26 @@ export class UserController {
     private auth: AuthService,
     @InjectRepository(UserAccountEntity) private user_account,
   ) {}
+
+  @MessagePattern("jwt_verify")
+  async jwt_verify(@Payload() payload) {
+    const { API_TOKEN } = payload;
+    if (!API_TOKEN) {
+      return false;
+    }
+    const verify_result = await this.auth.jwt_verify(API_TOKEN);
+    return verify_result;
+  }
+
+  @Post("verify")
+  async verify(@Request() request) {
+    const { API_TOKEN } = request.cookies;
+    if (!API_TOKEN) {
+      return false;
+    }
+    const verify_result = await this.auth.jwt_verify(API_TOKEN);
+    return verify_result;
+  }
 
   @Post("login")
   async login(@Request() request, @Response({ passthrough: true }) response) {
@@ -58,6 +79,17 @@ export class UserController {
     } catch (error) {
       throw new Error(error.message);
     }
+  }
+
+  @MessagePattern("user_detail")
+  async user_detail(@Payload() payload) {
+    const { API_TOKEN } = payload;
+    const auth_info = await this.auth.getAutoInfoByToken(API_TOKEN);
+    const user_info = await this.user_account.findOneBy({
+      user_id: auth_info.user_id,
+      username: auth_info.username,
+    });
+    return user_info;
   }
 
   @Get("detail")
