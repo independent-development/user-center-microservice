@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
-import { valid_enums } from "@/emuns/valid_enums";
 import { user_role_enum } from "@/emuns/user_role_enum";
+import { active_status_enums } from "@/emuns/active_status_enums";
 
 @Entity({ database: "user", name: "user_account" })
 export class UserAccountEntity {
@@ -46,10 +46,10 @@ export class UserAccountEntity {
   @Column({
     type: "enum",
     nullable: false,
-    enum: valid_enums,
-    default: valid_enums.VALID,
+    enum: active_status_enums,
+    default: active_status_enums.ACTIVE,
   })
-  valid: string | undefined;
+  active_status: string | undefined;
 
   @Column({
     type: "timestamp",
