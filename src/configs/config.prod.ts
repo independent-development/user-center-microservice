@@ -14,5 +14,5 @@ export const mysql_module_config: TypeOrmModuleOptions = {
   host: "yogaho-database.cluster-cmlqabuz16ur.ap-southeast-1.rds.amazonaws.com",
   username: "yogaho_admin",
   password: "glyz205070410",
-  // synchronize: true,
+  synchronize: true,
 };
