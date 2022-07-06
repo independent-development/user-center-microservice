@@ -16,8 +16,12 @@ export class AuthService {
     await this.redis_cache.set(`user:${username}`, value, params);
   }
 
-  async del(username) {
-    await this.redis_cache.del(`user:${username}`);
+  async del(username, params?) {
+    if (await this.redis_cache.get(`user:${username}`, params)) {
+      await this.redis_cache.del(`user:${username}`);
+    } else {
+      return true;
+    }
   }
 
   /** 缓存用户信息并返回令牌信息 **/

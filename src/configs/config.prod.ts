@@ -7,6 +7,7 @@ export const cache_module_config = {
   host: "redis-prod.jnmb39.clustercfg.apse1.cache.amazonaws.com",
   port: 6379,
   ttl: 60 * 60 * 1000,
+  db: 0,
 };
 export const mysql_module_config: TypeOrmModuleOptions = {
   port: 3306,
