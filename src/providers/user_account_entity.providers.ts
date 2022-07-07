@@ -1,7 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 import { user_role_enum } from "@/emuns/user_role_enum";
-import { active_status_enums } from "@/emuns/active_status_enums";
 
 @Entity({ database: "user", name: "user_account" })
 export class UserAccountEntity {
@@ -43,24 +49,24 @@ export class UserAccountEntity {
   @Column({ type: "varchar", length: 20, nullable: true, unique: true })
   mobile_phone: string | undefined;
 
-  @Column({
-    type: "enum",
-    nullable: false,
-    enum: active_status_enums,
-    default: active_status_enums.ACTIVE,
+  @CreateDateColumn({
+    type: "datetime",
+    name: "create_time",
+    comment: "用户注册时间",
   })
-  active_status: string | undefined;
+  createTime: string | undefined;
 
-  @Column({
-    type: "timestamp",
-    nullable: false,
-    default: () => "CURRENT_TIMESTAMP",
+  @UpdateDateColumn({
+    type: "datetime",
+    name: "update_time",
+    comment: "用户信息更新时间",
   })
-  create_time: string | undefined;
+  updateTime: string | undefined;
 
-  @Column({
-    type: "timestamp",
-    nullable: true,
+  @DeleteDateColumn({
+    type: "datetime",
+    name: "delete_time",
+    comment: "用户信息更新时间",
   })
-  update_time: string | undefined;
+  deleteTime: string | undefined;
 }
