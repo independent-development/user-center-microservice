@@ -54,19 +54,19 @@ export class UserAccountEntity {
     name: "create_time",
     comment: "用户注册时间",
   })
-  createTime: string | undefined;
+  create_time: string | undefined;
 
   @UpdateDateColumn({
     type: "datetime",
     name: "update_time",
     comment: "用户信息更新时间",
   })
-  updateTime: string | undefined;
+  update_time: string | undefined;
 
   @DeleteDateColumn({
     type: "datetime",
     name: "delete_time",
     comment: "用户信息更新时间",
   })
-  deleteTime: string | undefined;
+  delete_time: string | undefined;
 }
