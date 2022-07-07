@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 
+import { sex_enum } from "@/emuns/sex_enum";
 import { user_role_enum } from "@/emuns/user_role_enum";
 
 @Entity({ database: "user", name: "user_account" })
@@ -20,6 +21,7 @@ export class UserAccountEntity {
     enum: user_role_enum,
     nullable: false,
     default: user_role_enum.COMMON,
+    comment: "用户角色",
   })
   role: string | undefined;
 
@@ -34,20 +36,48 @@ export class UserAccountEntity {
   username: string | undefined;
 
   /** 密码 **/
-  @Column({ type: "varchar", length: 40, nullable: false })
+  @Column({ type: "varchar", length: 40, nullable: false, comment: "密码" })
   password: string | undefined;
 
   /** 用户的e_mail **/
-  @Column({ type: "varchar", length: 40, nullable: true })
+  @Column({ type: "varchar", length: 40, nullable: true, comment: "邮箱地址" })
   e_mail: string | undefined;
 
   /** 绑定的web3钱包 **/
-  @Column({ type: "varchar", length: 40, nullable: true })
+  @Column({
+    type: "varchar",
+    length: 40,
+    nullable: true,
+    comment: "绑定的钱包",
+  })
   wallet: string | undefined;
 
   /** 手机号码 **/
-  @Column({ type: "varchar", length: 20, nullable: true, unique: true })
+  @Column({
+    type: "varchar",
+    length: 20,
+    nullable: true,
+    unique: true,
+    comment: "关联手机",
+  })
   mobile_phone: string | undefined;
+
+  /** 性别 **/
+  @Column({
+    type: "enum",
+    enum: sex_enum,
+    default: sex_enum.UNKNOW,
+    nullable: true,
+    comment: "性别",
+  })
+  sex: string | undefined;
+
+  @Column({
+    type: "datetime",
+    nullable: true,
+    comment: "出生年月",
+  })
+  birth: string | undefined;
 
   @CreateDateColumn({
     type: "datetime",
