@@ -40,7 +40,13 @@ export class UserAccountEntity {
   password: string | undefined;
 
   /** 用户的e_mail **/
-  @Column({ type: "varchar", length: 40, nullable: true, comment: "邮箱地址" })
+  @Column({
+    type: "varchar",
+    length: 40,
+    nullable: true,
+    unique: true,
+    comment: "邮箱地址",
+  })
   e_mail: string | undefined;
 
   /** 绑定的web3钱包 **/
