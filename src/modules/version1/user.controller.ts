@@ -6,7 +6,7 @@ import { Controller, Post, Body, Request ,Response, Get } from '@nestjs/common';
 import { UserAccountEntity } from "@/providers/user_account_entity.providers";
 import { AuthService } from "@/services/version1/auth.service";
 
-@Controller("/v1/user")
+@Controller("/user/v1/")
 export class UserController {
   constructor(
     private auth: AuthService,

@@ -9,7 +9,7 @@ import { ResponseInterceptor } from "@/interceptors/response.interceptor";
 /** 创建http接口服务 **/
 async function bootstrapHttpServer() {
   const app = await NestFactory.create(AppModule);
-  await app.setGlobalPrefix("api");
+  await app.setGlobalPrefix("/api/account/");
   await app.useGlobalGuards(new UserGuard());
   await app.useGlobalFilters(new ErrorExceptionFilter());
   await app.useGlobalInterceptors(new ResponseInterceptor());
