@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.118.1",
+    "@nestjs-modules/ioredis": "^1.0.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/microservices": "^8.4.7",
@@ -31,6 +32,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
+    "ioredis": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.3",
     "mysql2": "^2.3.3",
