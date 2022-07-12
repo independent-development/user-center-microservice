@@ -44,10 +44,8 @@ export class UserController {
       throw new Error("无效的凭据!");
     }
     /** 在缓存中记录用户的信息 **/
-    const jwt_string = await this.auth.cacheUserInfoAndReturnAuth(
-      username,
-      user_info,
-    );
+    /* prettier-ignore */
+    const jwt_string = await this.auth.cacheUserInfoAndReturnAuth(username,user_info);
     /** 向前端注入cookie **/
     await response.cookie("API_TOKEN", jwt_string, {
       maxAge: 24 * 60 * 60 * 1000,

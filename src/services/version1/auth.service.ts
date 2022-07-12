@@ -13,27 +13,27 @@ export class AuthService {
   }
 
   async set(username, value, params?) {
-    await this.redis_cache.set(`user:${username}`, value, params);
+    return await this.redis_cache.set(`user:${username}`, value, params);
   }
 
-  async del(username, params?) {
-    if (await this.redis_cache.get(`user:${username}`, params)) {
-      await this.redis_cache.del(`user:${username}`);
-    } else {
-      return true;
-    }
+  async del(username) {
+    return await this.redis_cache.del(`user:${username}`);
   }
 
   /** 缓存用户信息并返回令牌信息 **/
   async cacheUserInfoAndReturnAuth(username, user_info) {
-    const login_time = moment().format("YYYY-MM-DD HH:mm:ss");
-    const jwt_string = await jwt.sign(
-      { user_id: user_info.user_id, username },
-      config.jwt_secret,
-      { expiresIn: "1 days" },
-    );
-    await this.set(username, { login_time, ...user_info });
-    return jwt_string;
+    try {
+      const login_time = moment().format("YYYY-MM-DD HH:mm:ss");
+      const jwt_string = await jwt.sign(
+        { user_id: user_info.user_id, username },
+        config.jwt_secret,
+        { expiresIn: "1 days" },
+      );
+      await this.set(username, { login_time, ...user_info });
+      return jwt_string;
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
   /** 根据token令牌获取用户详情 **/
